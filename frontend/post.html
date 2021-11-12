@@ -17,9 +17,19 @@
             <h2 id='postTitle'></h2>
             <i id='deletePost' onclick='deletePost()' class='fas fa-trash-alt'></i>
         </div>
-        <p id='postContent'>
-        
-            </p>
+        <div>
+            <p id='postContent'></p>
+            <i id='editPost' onclick='openEditor()' class='fas fa-edit'></i>
+        </div>
+    </div>
+    <div id='modalContainer'>
+        <form onsubmit='editPost(event)' class='formStyles'>
+            <h2>Title</h2>
+            <textarea id='newTitle'></textarea>
+            <h2>Content</h2>
+            <textarea id='newContent'></textarea>
+            <input type='submit' id='submitChanges' value='Submit changes' />
+        </form>
     </div>
     <script src='scripts/post.js'></script>
 </body>

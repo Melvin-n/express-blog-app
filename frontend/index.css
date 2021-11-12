@@ -60,3 +60,12 @@ textarea {
     width: 100%;
     resize: vertical;
 }
+
+#modalContainer {
+    display: none;
+    position: fixed;
+}
+
+#modalContainer.show {
+    display: block;
+}

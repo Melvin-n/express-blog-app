@@ -22,12 +22,11 @@ const getSinglePost = (req, res) => {
     }
 
 const createPost = (req, res) => {
+
     const title = req.body.title
     const content = req.body.content
     console.log(req.body)
-    console.log(title, content)
-    let posts = fs.readFileSync('posts.json', 'utf-8')
-    posts = JSON.parse(posts)
+    const posts = readPosts()
 
     posts.push({title: title, content: content})
     console.log(posts)
@@ -42,6 +41,26 @@ const createPost = (req, res) => {
     })
 }
 
+const editPost = (req, res) => {
+    const title = req.body.title
+    const content = req.body.content
+    const postNumber = req.params.postNumber
+    const posts = readPosts()
+    console.log(req.body)
+  
+    posts[postNumber].title = title
+    posts[postNumber].content = content
+    fs.writeFile('posts.json', JSON.stringify(posts), (err) => {
+        if (err) {
+            console.log(err)
+            res.status(500).send('Unable to edit post')
+        } else {
+            res.status(200).send('Post successfully edited')
+            console.log('Post successfully edited')
+        }
+    })
+
+}
 const deletePost = (req, res) => {
     const postNumber = req.params.postNumber
     const posts = readPosts()
@@ -61,12 +80,10 @@ const deletePost = (req, res) => {
 }
 
 
-
-
-
     module.exports = {
         getPosts,
         getSinglePost,
         createPost,
-        deletePost
+        deletePost,
+        editPost
     }
