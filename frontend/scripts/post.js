@@ -3,12 +3,7 @@ const postID = url.searchParams.get('post_id')
 
 const postTitle = document.getElementById('postTitle')
 const postContent = document.getElementById('postContent')
-const title = document.getElementById('newTitle').value
-const content = document.getElementById('newContent').value
 
-console.log(title)
-const modalContainer = document.getElementById('modalContainer')
-const submitChanges = document.getElementById('submitChanges')
 
 fetch(`http://localhost:4000/post/${postID}`)
 .then(res => res.json())
@@ -26,10 +21,16 @@ function deletePost() {
     })
 }
 
+const title = document.getElementById('newTitle')
+const content = document.getElementById('newContent')
+
+console.log(title)
+const modalContainer = document.getElementById('modalContainer')
+const submitChanges = document.getElementById('submitChanges')
+
 function openEditor() {
     modalContainer.classList.add('show')
 }
-
 
 function editPost(e) {
     e.preventDefault()
@@ -37,7 +38,7 @@ function editPost(e) {
     fetch(`http://localhost:4000/create-post/${postID}`, {
         method: 'put',
         headers: { 'Content-Type': 'application/json'},
-        body: JSON.stringify({title: title, content: content})
+        body: JSON.stringify({title: title.value, content: content.value})
     })
     .then(res => {
         if (res.status === 200) {
